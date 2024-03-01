@@ -10,6 +10,9 @@
 #include <termios.h>    // Para tcsetattr, tcgetattr
 #include <curses.h>
 
+
+
+
 size_t	ft_strlen(const char *s)
 {
 	size_t	a;
@@ -70,7 +73,7 @@ void	do_echo(char **command)
 		n_all = 0; 
 	if (n_all)
 		i = 1;
-	while (command[i++]) {
+	while (command[i++] && command[i++]!= NULL) {
 		printf("%s", command[i]);
 		if (command[i + 1])
 			printf(" "); 
@@ -79,9 +82,35 @@ void	do_echo(char **command)
 		printf("\n"); 
 }
 
+void do_export(char **command){}
+void do_pwd(char **command){}
+void do_cd(char **command){}
+void do_unset(char **command){}
+void do_env(char **command){}
+void do_exit(char **command){}
+
+void decide(char **command) {
+    if (strncmp(command[0], "export", 6) == 0) {
+        do_export(command);
+    } else if (strncmp(command[0], "echo", 4) == 0) {
+        do_echo(command);
+    } else if (strncmp(command[0], "pwd", 3) == 0) {
+        do_pwd(command);
+    } else if (strncmp(command[0], "cd", 2) == 0) {
+        do_cd(command);
+    } else if (strncmp(command[0], "unset", 5) == 0) {
+        do_unset(command);
+    } else if (strncmp(command[0], "env", 3) == 0) {
+        do_env(command);
+    } else if (strncmp(command[0], "exit", 4) == 0) {
+        do_exit(command);
+    } else {
+        printf("Command to execve\n");
+    }
+}
 
 int main(void)
 {
 	char *strings[] = {"echo", NULL};
-	do_echo(strings);
+	decide(strings);
 }
