@@ -84,5 +84,4 @@ int main(void)
 {
 	char *strings[] = {"echo", NULL};
 	do_echo(strings);
-	printf("okey");
 }
